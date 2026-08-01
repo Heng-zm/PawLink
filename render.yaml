@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pawlink-pro
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: SESSION_DAYS
+        value: 30
+      - key: DATA_FILE
+        value: /var/data/pawlink-data.json
+      - key: MAX_ANALYTICS_EVENTS
+        value: 50000
+    disk:
+      name: pawlink-data
+      mountPath: /var/data
+      sizeGB: 1
